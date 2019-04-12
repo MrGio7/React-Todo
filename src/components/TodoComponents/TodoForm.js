@@ -3,7 +3,10 @@ import React from 'react';
 const TodoForm = () =>{
     return(
         <form>
-            <input />
+            <input 
+                className='box'
+                
+            />
         </form>
     )
 }
