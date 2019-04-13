@@ -4,9 +4,13 @@ const TodoForm = () =>{
     return(
         <form>
             <input 
+                type="text"
                 className='box'
+                placeholder="...todo"
                 
             />
+            <button >Add Todo</button>
+            <button >Clear Completed</button>
         </form>
     )
 }
