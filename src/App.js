@@ -1,6 +1,6 @@
 import React from 'react';
 import TodoForm from './components/TodoComponents/TodoForm';
-import TodoList from './components/TodoComponents/TodoList'
+import TodoList from './components/TodoComponents/TodoList';
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -23,17 +23,31 @@ class App extends React.Component {
           completed: false
         }
       ],
-      
-      task: ''
     }
   }
+
+  addArray = (event, item) =>{
+    event.preventDefault();
+    const newArray = {
+      task: item,
+      id: Date.now(),
+      completed:false
+    }
+
+    this.setState({
+      taskList: [...this.state.taskList, newArray]
+    })
+  }
+
   render() {
     return (
       <div>
         <TodoList 
         taskList={this.state.taskList}
         />
-        <TodoForm />
+        <TodoForm 
+        addArray={this.addArray}
+        />
       </div>
     );
   }
