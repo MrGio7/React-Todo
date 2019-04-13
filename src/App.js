@@ -26,27 +26,45 @@ class App extends React.Component {
     }
   }
 
-  addArray = (event, item) =>{
-    event.preventDefault();
+  addArray = item =>{
+    const copiedArray = this.state.taskList.slice();
     const newArray = {
       task: item,
       id: Date.now(),
       completed:false
     }
+    copiedArray.push(newArray)
 
+    
     this.setState({
-      taskList: [...this.state.taskList, newArray]
-    })
-  }
+      taskList: copiedArray
+    });
+  };
+  
+  toggleItem = itemId => {
+    this.setState({
+      taskList: this.state.taskList.map(item => {
+        if(itemId === item.id) {
+          return{
+            ...item,
+            completed: !item.completed
+          };
+        }
+        return item;
+      })
+    });
+  };
 
   render() {
     return (
       <div>
         <TodoList 
         taskList={this.state.taskList}
+        toggleItem={this.toggleItem}
         />
         <TodoForm 
         addArray={this.addArray}
+
         />
       </div>
     );

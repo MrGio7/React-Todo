@@ -14,12 +14,12 @@ class TodoForm extends React.Component {
     }
 
     submitItem = event => {
+        event.preventDefault();
         this.setState({ todoText:'' });
-        this.props.addItem(event. this.state.todoText)
+        this.props.addArray(this.state.todoText)
     };
 
     render(){
-        console.log(this.state)
         return(
         <form onSubmit={this.submitItem}>
             <input 
@@ -30,8 +30,8 @@ class TodoForm extends React.Component {
                 onChange={this.handleChanges}
                 
             />
-            <button >Add Todo</button>
-            <button >Clear Completed</button>
+            <button >Add </button>
+            <button >Clear Selected</button>
         </form>
         )
     }
