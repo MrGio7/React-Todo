@@ -1,6 +1,8 @@
 import React from 'react';
 import TodoForm from './components/TodoComponents/TodoForm';
-import TodoList from './components/TodoComponents/TodoList'
+import TodoList from './components/TodoComponents/TodoList';
+
+import './components/TodoComponents/Todo.css'
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -23,17 +25,55 @@ class App extends React.Component {
           completed: false
         }
       ],
-      
-      task: ''
     }
   }
+
+  addArray = item =>{
+    const copiedArray = this.state.taskList.slice();
+    const newArray = {
+      task: item,
+      id: Date.now(),
+      completed:false
+    }
+    copiedArray.push(newArray)
+
+    
+    this.setState({
+      taskList: copiedArray
+    });
+  };
+  
+  toggleItem = itemId => {
+    this.setState({
+      taskList: this.state.taskList.map(item => {
+        if(itemId === item.id) {
+          return{
+            ...item,
+            completed: !item.completed
+          };
+        }
+        return item;
+      })
+    });
+  };
+
+  clearCompleted = event => {
+    this.setState({
+      taskList: this.state.taskList.filter(task => !task.completed)
+    });
+  };
+
   render() {
     return (
       <div>
         <TodoList 
         taskList={this.state.taskList}
+        toggleItem={this.toggleItem}
         />
-        <TodoForm />
+        <TodoForm 
+        addArray={this.addArray}
+        />
+        <button onClick={this.clearCompleted}>Clear Selected</button>
       </div>
     );
   }
